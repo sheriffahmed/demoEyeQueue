@@ -130,6 +130,14 @@ angular.module(
     cache: false
   })
 
+  // view add restaurant meal item
+  .state('menu_items', {
+    url: '/menu-items',
+    templateUrl: 'templates/menu-items.html',
+    // abstract: true,
+    controller: 'MenuItemsController'
+  })
+
   // view user account
   .state('account', {
     url: '/account',

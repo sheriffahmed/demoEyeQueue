@@ -14,6 +14,8 @@ angular.module('starter.controllers', [])
   // show back button
   $ionicNavBarDelegate.showBackButton(true);
 
+
+
   $scope.order = function(meal) {
     var userData = user.getUser()
     $http.post(apiUrl + '/order', {
@@ -28,6 +30,14 @@ angular.module('starter.controllers', [])
   }
 
   $scope.meal = $stateParams.meal
+})
+
+.controller('MenuItemsController', function($scope, $ionicNavBarDelegate, $http, user, $stateParams, apiUrl) {
+  // set the title
+  $scope.title = 'MenuItems';
+  // show back button
+  $ionicNavBarDelegate.showBackButton(true);  
+  
 })
 
 .controller('Restaurant', function($scope, socket){
