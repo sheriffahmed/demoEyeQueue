@@ -2,7 +2,7 @@
 
 angular.module(
   'starter', 
-  ['ionic','ionic.service.core', 'btford.socket-io', 'starter.controllers', 'starter.services']
+  ['ionic','ionic.service.core', 'btford.socket-io', 'starter.controllers', 'starter.services', 'ionic.cloud']
 )
 .constant('apiUrl', 'http://eyequeue.herokuapp.com')
 .factory('socket', function (socketFactory, apiUrl) {
@@ -27,7 +27,7 @@ angular.module(
     }
   }
 })
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $ionicPush) {
     $ionicPlatform.ready(function() {
 
     setTimeout(function () {
@@ -45,10 +45,33 @@ angular.module(
     }
 
   });
+//     $ionicPush.register().then(function(t) {
+//   return $ionicPush.saveToken(t);
+// }).then(function(t) {
+//   console.log('Token saved:', t.token);
+// });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $ionicCloudProvider) {
 
+  // $ionicCloudProvider.init({
+  //   "core": {
+  //     "app_id": "AAA0070A"
+  //   },
+  //   "push": {
+  //     "sender_id": "674006259291",
+  //     "pluginConfig": {
+  //       "ios": {
+  //         "badge": true,
+  //         "sound": true
+  //       },
+  //       "android": {
+  //         "iconColor": "#343434"
+  //       }
+  //     }
+  //   }
+  // });
+// })
     $ionicConfigProvider.backButton.previousTitleText(false);
     $ionicConfigProvider.backButton.text('');
 

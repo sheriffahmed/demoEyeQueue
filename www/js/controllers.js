@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('HomeController', function($scope, $http, apiUrl) {
+.controller('HomeController', function($scope, $http, apiUrl, $ionicPush) {
 
   $http.get(apiUrl + '/restaurants')
     .then(function(response){
@@ -8,7 +8,10 @@ angular.module('starter.controllers', [])
     })
 })
 
-.controller('DetailController', function($scope, $ionicNavBarDelegate, $http, user, socket, $stateParams, apiUrl) {
+.controller('DetailController', function($scope, $ionicNavBarDelegate, $http, user, socket, $stateParams, apiUrl, $cordovaVibration) {
+
+
+// });
   // set the title
   $scope.title = 'Detail';
   // show back button
@@ -26,8 +29,11 @@ angular.module('starter.controllers', [])
       var orderNumber = response.data.orderNumber
       alert("Order Sent ("+orderNumber+")! You will be notified when its complete")
       $scope.orderNumber = orderNumber
+        // Vibrate 100ms
+
     })
   }
+  // $cordovaVibration.vibrate(10000);
 
   $scope.meal = $stateParams.meal
 })
@@ -37,10 +43,10 @@ angular.module('starter.controllers', [])
   $scope.title = 'MenuItems';
   // show back button
   $ionicNavBarDelegate.showBackButton(true);  
-  
+
 })
 
-.controller('Restaurant', function($scope, socket){
+.controller('Restaurant', function($scope, socket, $cordovaVibration){
   $scope.orders = []
 
   socket.removeListener('orderReady')
@@ -55,6 +61,8 @@ angular.module('starter.controllers', [])
     socket.emit('orderReady', order)
     console.log('order ready', order)
   }
+  // Vibrate 100ms
+  // $cordovaVibration.vibrate(10000);
 })
 
 .controller('Location', function($scope, $ionicLoading, $compile) {

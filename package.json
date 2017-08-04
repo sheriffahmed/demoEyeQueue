@@ -11,7 +11,8 @@
     "gulp-minify-css": "^0.3.0",
     "gulp-rename": "^1.2.0",
     "gulp-sass": "^2.0.4",
-    "mongoose": "^4.11.3"
+    "mongoose": "^4.11.3",
+    "phonegap-plugin-push": "^2.0.0"
   },
   "devDependencies": {
     "@ionic/cli-plugin-gulp": "1.1.0",
@@ -31,5 +32,12 @@
   "cordovaPlatforms": [
     "ios",
     "android"
-  ]
+  ],
+  "cordova": {
+    "plugins": {
+      "phonegap-plugin-push": {
+        "SENDER_ID": "674006259291"
+      }
+    }
+  }
 }
