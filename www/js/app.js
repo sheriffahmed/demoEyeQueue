@@ -1,33 +1,8 @@
-/* Created at The Knowledge House */
+/* Autor: Duy Thanh Dao */
 
-angular.module(
-  'starter', 
-  ['ionic','ionic.service.core', 'btford.socket-io', 'starter.controllers', 'starter.services', 'ionic.cloud']
-)
-.constant('apiUrl', 'http://eyequeue.herokuapp.com')
-.factory('socket', function (socketFactory, apiUrl) {
-  var socket = socketFactory({
-    ioSocket: io.connect(apiUrl)
-  });
-  socket.on('orderReady', function(order){
-    alert("order " + order.orderNumber + " is ready to pick up")
-  })
-  return socket;
-}).factory('user', function($http, apiUrl){
-  var user;
+angular.module('starter', ['ionic','ionic.service.core', 'starter.controllers', 'starter.services'])
 
-  $http.get(apiUrl + '/user')
-    .then(function(response){
-      user = response.data
-    })
-
-  return {
-    getUser: function() {
-      return user;
-    }
-  }
-})
-.run(function($ionicPlatform, $ionicPush) {
+.run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
 
     setTimeout(function () {
@@ -45,33 +20,10 @@ angular.module(
     }
 
   });
-//     $ionicPush.register().then(function(t) {
-//   return $ionicPush.saveToken(t);
-// }).then(function(t) {
-//   console.log('Token saved:', t.token);
-// });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $ionicCloudProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
-  // $ionicCloudProvider.init({
-  //   "core": {
-  //     "app_id": "AAA0070A"
-  //   },
-  //   "push": {
-  //     "sender_id": "674006259291",
-  //     "pluginConfig": {
-  //       "ios": {
-  //         "badge": true,
-  //         "sound": true
-  //       },
-  //       "android": {
-  //         "iconColor": "#343434"
-  //       }
-  //     }
-  //   }
-  // });
-// })
     $ionicConfigProvider.backButton.previousTitleText(false);
     $ionicConfigProvider.backButton.text('');
 
@@ -109,23 +61,12 @@ angular.module(
     }
   })
 
-   // map view mode
-  .state('tab.restaurant', {
-    url: '/restaurant',
-    views: {
-      'tab-restaurant': {
-        templateUrl: 'templates/tab-restaurant.html',
-        controller: 'Restaurant'
-      }
-    }
-  })
-
   // search
-  .state('tab.meals', {
-    url: '/meals',
+  .state('tab.search', {
+    url: '/search',
     views: {
-      'tab-meals': {
-        templateUrl: 'templates/tab-meals.html',
+      'tab-search': {
+        templateUrl: 'templates/tab-search.html',
         controller: 'SearchController'
       }
     }
@@ -146,19 +87,7 @@ angular.module(
   .state('detail', {
     url: '/detail',
     templateUrl: 'templates/detail.html',
-    controller: 'DetailController',
-    params: {
-      meal: null
-    },
-    cache: false
-  })
-
-  // view add restaurant meal item
-  .state('menu_items', {
-    url: '/menu-items',
-    templateUrl: 'templates/menu-items.html',
-    // abstract: true,
-    controller: 'MenuItemsController'
+    controller: 'DetailController'
   })
 
   // view user account

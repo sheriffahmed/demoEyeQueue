@@ -1,68 +1,12 @@
 angular.module('starter.controllers', [])
 
-.controller('HomeController', function($scope, $http, apiUrl, $ionicPush) {
+.controller('HomeController', function($scope) {})
 
-  $http.get(apiUrl + '/restaurants')
-    .then(function(response){
-      $scope.restaurants = response.data
-    })
-})
-
-.controller('DetailController', function($scope, $ionicNavBarDelegate, $http, user, socket, $stateParams, apiUrl, $cordovaVibration) {
-
-
-// });
+.controller('DetailController', function($scope, $ionicNavBarDelegate) {
   // set the title
   $scope.title = 'Detail';
   // show back button
   $ionicNavBarDelegate.showBackButton(true);
-
-
-
-  $scope.order = function(meal) {
-    var userData = user.getUser()
-    $http.post(apiUrl + '/order', {
-      meal: meal._id,
-      user: userData._id,
-      paymentMethodId: userData.paymentMethods[0].card_id
-    }).then(function(response){
-      var orderNumber = response.data.orderNumber
-      alert("Order Sent ("+orderNumber+")! You will be notified when its complete")
-      $scope.orderNumber = orderNumber
-        // Vibrate 100ms
-
-    })
-  }
-  // $cordovaVibration.vibrate(10000);
-
-  $scope.meal = $stateParams.meal
-})
-
-.controller('MenuItemsController', function($scope, $ionicNavBarDelegate, $http, user, $stateParams, apiUrl) {
-  // set the title
-  $scope.title = 'MenuItems';
-  // show back button
-  $ionicNavBarDelegate.showBackButton(true);  
-
-})
-
-.controller('Restaurant', function($scope, socket, $cordovaVibration){
-  $scope.orders = []
-
-  socket.removeListener('orderReady')
-  socket.on('newOrder', function(order){
-    $scope.orders.unshift(order)
-    alert("New ORDER! " + order.orderNumber)
-  })
-
-  $scope.orderReady = function(order) {
-    var index = $scope.orders.indexOf(order);
-    $scope.orders.splice(index, 1)
-    socket.emit('orderReady', order)
-    console.log('order ready', order)
-  }
-  // Vibrate 100ms
-  // $cordovaVibration.vibrate(10000);
 })
 
 .controller('Location', function($scope, $ionicLoading, $compile) {
@@ -90,22 +34,18 @@ angular.module('starter.controllers', [])
   //google.maps.event.addDomListener(window, 'load', initialize);
 })
 
-.controller('SearchController', function($scope, $http, apiUrl) {
-  $http.get(apiUrl + '/meals')
-      .then(function(response){
-        $scope.meals = response.data
-      })
-})
+.controller('SearchController', function($scope ) {})
 
 .controller('SearchFilterController', function($scope, $state, $ionicHistory) {
-    // apply filter
+  // apply filter
   $scope.applyFilter = function() {
+    // put your code hear
     // don't show back button in next view
     $ionicHistory.nextViewOptions({
       disableBack: true
     });
     // comeback to search screen
-    $state.go('tab.meals');
+    $state.go('tab.search');
   }
 })
 
